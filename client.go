@@ -12,7 +12,7 @@ type client struct {
 	conn     net.Conn
 	nick     string
 	room     *room
-	commands chan<- command
+	commands chan<- ICommand
 }
 
 func (c *client) readInput() {
@@ -26,31 +26,31 @@ func (c *client) readInput() {
 		cmd := strings.TrimSpace(args[0])
 		switch cmd {
 		case "/nick":
-			c.commands <- command{
+			c.commands <- commandNick{
 				id:     CMD_NiCK,
 				client: c,
 				args:   args,
 			}
 		case "/join":
-			c.commands <- command{
+			c.commands <- commandJoin{
 				id:     CMD_JOIN,
 				client: c,
 				args:   args,
 			}
 		case "/rooms":
-			c.commands <- command{
+			c.commands <- commandRooms{
 				id:     CMD_ROOMS,
 				client: c,
 				args:   args,
 			}
 		case "/msg":
-			c.commands <- command{
+			c.commands <- commandMsg{
 				id:     CMD_MSG,
 				client: c,
 				args:   args,
 			}
 		case "/quit":
-			c.commands <- command{
+			c.commands <- commandQuit{
 				id:     CMD_QUIT,
 				client: c,
 				args:   args,
