@@ -8,22 +8,11 @@ import (
 	"strings"
 )
 
-type commandId int
-
 type ICommand interface {
 	doAction(s *server)
 }
 
-const (
-	CMD_NiCK commandId = iota
-	CMD_JOIN
-	CMD_ROOMS
-	CMD_MSG
-	CMD_QUIT
-)
-
 type commandNick struct {
-	id     commandId
 	client *client
 	args   []string
 }
@@ -34,7 +23,6 @@ func (com commandNick) doAction(s *server) {
 }
 
 type commandJoin struct {
-	id     commandId
 	client *client
 	args   []string
 }
@@ -57,7 +45,6 @@ func (com commandJoin) doAction(s *server) {
 }
 
 type commandRooms struct {
-	id     commandId
 	client *client
 	args   []string
 }
@@ -71,7 +58,6 @@ func (com commandRooms) doAction(s *server) {
 }
 
 type commandMsg struct {
-	id     commandId
 	client *client
 	args   []string
 }
@@ -85,7 +71,6 @@ func (com commandMsg) doAction(s *server) {
 }
 
 type commandQuit struct {
-	id     commandId
 	client *client
 	args   []string
 }
